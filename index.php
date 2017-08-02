@@ -1,0 +1,79 @@
+<?php
+/*
+ * Created on Aug 1, 2017
+ *
+ * To change the template for this generated file go to
+ * Window - Preferences - PHPeclipse - PHP - Code Templates
+ */
+?>
+<html>
+	 <head>
+	 	<link rel="stylesheet" type="text/css" href="style.css">
+	 	<script type="text/javascript" >
+	 		function checkDate(){
+	 			var startObj = document.getElementById("start_date");
+	 			var endObj = document.getElementById("end_date");
+	 			if (startObj.value.length == 0 || endObj.value.length == 0) {
+	 				alert("Please select both start date and end date");
+	 				return;	
+	 			}
+	 			if (startObj.value > endObj.value) {
+	 				alert("Start Date should be less than end date. Please modify");
+	 				return;	
+	 			}
+	 			document.getElementById('dateCalc').submit();
+	 			 
+	 		}
+	 	</script>
+	 </head>
+	 <body>
+		 <div id="main">
+		 <h1>Date difference Calculator</h1>
+	 	 <h5>Note: Please select both date and time. Time can be entered using the numeric keys or the small arrows to the right.</h5>
+		    <form action="dateCalculator.php" method="post" id="dateCalc" >
+		    	<div class="sub">
+		    		<div class="entity">
+						<div class="label"><label>Start Date: </label></div><div class="field"><input type="datetime-local" name="start_date" id="start_date" value=""></div>
+					</div>
+					<div class="entity">
+						<div class="label"><label>End Date: </label></div><div class="field"><input type="datetime-local" name="end_date" id="end_date" value=""></div>
+					</div>
+					<div class="entity">
+						 <div class="label"><label>Calculate: </label></div>
+						 <div class="field">
+						 	 <input type="radio" name="diffIn" value="days" checked>Number of days<br>
+						  	 <input type="radio" name="diffIn" value="weekdays">Number of weekdays<br>
+						  	 <input type="radio" name="diffIn" value="weeks">Number of complete weeks<br>
+						 </div> 
+					</div>
+					<div class="entity">
+						 <div class="label"><label>Display Format: </label></div>
+						 <div class="field">
+						 	 <input type="radio" name="format" value="none" checked>None<br>
+						 	 <input type="radio" name="format" value="years">Years<br>
+						  	 <input type="radio" name="format" value="hours">Hours<br>
+						  	 <input type="radio" name="format" value="minutes">Minutes<br>
+						  	 <input type="radio" name="format" value="seconds">Seconds<br>
+						 </div> 
+					</div>
+<!--					<div class="entity">
+						 <div class="label"><label>Timezone: </label></div>
+						 <div class="field">
+							<select name="timezone_offset" id="timezone-offset" class="span5">
+							    <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
+							    <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
+							    <option value="-10:00">(GMT -10:00) Hawaii</option>
+							    <option value="-09:50">(GMT -9:30) Taiohae</option>
+							    <option value="-09:00">(GMT -9:00) Alaska</option>
+							    <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+							</select>
+						 </div> 
+					</div>-->
+					<div class="btnCalculate">
+						<button id="submitDate" type="button" onclick="checkDate()">Calculate</button>
+					</div>
+				</div>
+		    </form>
+		 </div>
+	 </body>
+ </html>
