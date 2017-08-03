@@ -22,7 +22,18 @@
 	 				return;	
 	 			}
 	 			document.getElementById('dateCalc').submit();
-	 			 
+	 		}
+	 		function checkCalculateOption(){
+	 			var daysObj = document.getElementById("days");
+	 			var weekdaysObj = document.getElementById("weekdays");
+	 			var weeksObj = document.getElementById("weeks");
+	 			var yearsObj = document.getElementById("years");
+	 			if(weekdaysObj.checked || weeksObj.checked) {
+	 				yearsObj.disabled = true;
+	 			}
+	 			else if(daysObj.checked){
+	 				yearsObj.disabled = false;
+	 			}
 	 		}
 	 	</script>
 	 </head>
@@ -41,19 +52,19 @@
 					<div class="entity">
 						 <div class="label"><label>Calculate: </label></div>
 						 <div class="field">
-						 	 <input type="radio" name="diffIn" value="days" checked>Number of days<br>
-						  	 <input type="radio" name="diffIn" value="weekdays">Number of weekdays<br>
-						  	 <input type="radio" name="diffIn" value="weeks">Number of complete weeks<br>
+						 	 <input type="radio" name="diffIn" id="days" value="days" checked onchange="checkCalculateOption()">Number of days<br>
+						  	 <input type="radio" name="diffIn" id="weekdays" value="weekdays" onchange="checkCalculateOption()">Number of weekdays<br>
+						  	 <input type="radio" name="diffIn" id="weeks" value="weeks" onchange="checkCalculateOption()">Number of complete weeks<br>
 						 </div> 
 					</div>
 					<div class="entity">
 						 <div class="label"><label>Display Format: </label></div>
 						 <div class="field">
-						 	 <input type="radio" name="format" value="none" checked>None<br>
-						 	 <input type="radio" name="format" value="years">Years<br>
-						  	 <input type="radio" name="format" value="hours">Hours<br>
-						  	 <input type="radio" name="format" value="minutes">Minutes<br>
-						  	 <input type="radio" name="format" value="seconds">Seconds<br>
+						 	 <input type="radio" name="format" value="none" checked>None
+						 	 <br><input type="radio" name="format" value="years" id="years">Years
+						  	 <br><input type="radio" name="format" value="hours">Hours
+						  	 <br><input type="radio" name="format" value="minutes">Minutes
+						  	 <br><input type="radio" name="format" value="seconds">Seconds
 						 </div> 
 					</div>
 <!--					<div class="entity">

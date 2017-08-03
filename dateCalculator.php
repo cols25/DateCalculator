@@ -29,28 +29,14 @@ class DateCalculator
       	$this->endDate = new DateTime($endDate);
       	$this->displayFormat = $displayFormat;
       	$this->noOfDays = $this->startDate->diff($this->endDate);
-			switch($this->displayFormat){
-				case "years": 
-					$this->noOfYears = floor($this->noOfDays->format('%a')/365);
-					return $this->noOfYears." year(s)";
-					break;
-				case "hours":
-					$this->noOfHours = ($this->noOfDays->format('%a')*24) + $this->noOfDays->format('%h');
-					return $this->noOfHours." hour(s)"; 
-					break;
-				case "minutes":
-					$this->noOfMinutes = ($this->noOfDays->format('%a')*(60*24)) + ($this->noOfDays->format('%h')*60) + $this->noOfDays->format('%i');
-					return $this->noOfMinutes." minute(s)";
-					break;
-				case "seconds":
-					$this->noOfSeconds = ($this->noOfDays->format('%a')*(60*60*24)) + ($this->noOfDays->format('%h')*(60*60)) + ($this->noOfDays->format('%i')*60) + $this->noOfDays->format('%s');
-					return $this->noOfSeconds." second(s)";
-					break;
-				default :
-					$this->noOfDays = $this->noOfDays->format('%a');
-					return $this->noOfDays." day(s)";
-					break;
-			}
+      	if($this->displayFormat == 'none'){
+  			return $this->noOfDays->format('%a')." day(s)";
+  		}
+  		else
+  		{
+  			$this->result = $this->getDisplayFormat($this->displayFormat, $this->noOfDays->format('%a'), $this->noOfDays);
+  			return $this->result;
+  		}
     }
  
     #Number of weekdays between two datetime parameters
@@ -58,7 +44,7 @@ class DateCalculator
     {
       	$this->noOfWeekdays = 0;
       	$this->tempStartDate = new DateTime($startDate);
-      	$this->tempEndDate = new DateTime($endDate);;
+      	$this->tempEndDate = new DateTime($endDate);
       	$this->startDate = strtotime($startDate);
       	$this->endDate = strtotime($endDate);
       	$this->displayFormat = $displayFormat;
@@ -70,28 +56,14 @@ class DateCalculator
      		}
     		$this->startDate +=86400; // +1 day
   		};
-  		switch($this->displayFormat){
-//			case "years": 
-//				$this->noOfYears = floor($this->noOfDays->format('%a')/365);
-//				return $this->noOfYears." year(s)";
-//				break;
-			case "hours":
-				//print_r($this->noOfWeekdays->format('%y Year(s) %m Month(s) %d Day(s) %h Hour(s) %i Minute(s) %s Seconds'));
-				$this->noOfHours = floor($this->noOfWeekdays * 24) + $this->timeInterval->format('%h');
-				return $this->noOfHours." hour(s)"; 
-				break;
-			case "minutes":
-				$this->noOfMinutes = floor($this->noOfWeekdays * (60*24)) + ($this->timeInterval->format('%h')*60) + $this->timeInterval->format('%i');
-				return $this->noOfMinutes." minute(s)";
-				break;
-			case "seconds":
-				$this->noOfSeconds = floor($this->noOfWeekdays * (60*60*24)) + ($this->timeInterval->format('%h')*(60*60)) + ($this->timeInterval->format('%i')*60) + $this->timeInterval->format('%s');
-				return $this->noOfSeconds." second(s)";
-				break;
-			default :
-				return $this->noOfWeekdays." weekday(s)";
-				break;
-		}
+  		if($this->displayFormat == 'none'){
+  			return $this->noOfWeekdays." weekday(s)";
+  		}
+  		else
+  		{
+  			$this->result = $this->getDisplayFormat($this->displayFormat, $this->noOfWeekdays, $this->timeInterval);
+  			return $this->result;
+  		}
     }
     
     #Number of complete weeks between two datetime parameters
@@ -99,8 +71,12 @@ class DateCalculator
 	{
 		$this->weekStart = 0;
 		$this->noOfWeeks = 0;
+		$this->tempStartDate = new DateTime($startDate);
+      	$this->tempEndDate = new DateTime($endDate);
       	$this->startDate = strtotime($startDate);
       	$this->endDate = strtotime($endDate);
+      	$this->displayFormat = $displayFormat;
+      	$this->timeInterval = $this->tempStartDate->diff($this->tempEndDate);
       	while($this->startDate <= $this->endDate){
     	$this->theDay = date("N",$this->startDate);
      		if($this->theDay == 1) { // check if Monday
@@ -112,11 +88,45 @@ class DateCalculator
        		}
     		$this->startDate +=86400; // +1 day
   		};
-  		return $this->noOfWeeks." week(s)";
+  		if($this->displayFormat == 'none'){
+  			return $this->noOfWeeks." week(s)";
+  		}
+  		else
+  		{
+  			$this->noOfWeeks = $this->noOfWeeks * 7;
+  			$this->result = $this->getDisplayFormat($this->displayFormat, $this->noOfWeeks, $this->timeInterval);
+  			return $this->result;
+  		}
 	}
-	
-	#Accept a third parameter to convert the result into one of seconds, minutes, hours, years
 
+	#display days, weekdays and weeks based on user input(years, hours, minutes, seconds) format
+	public function getDisplayFormat($displayFormat, $days, $timeInterval)
+    {
+    	$this->days = $days;
+    	$this->timeInterval = $timeInterval;
+    	switch($displayFormat){
+			case "years": 
+				$this->noOfYears = floor($this->days/365);
+				return $this->noOfYears." year(s)";
+				break;
+			case "hours":
+				//print_r($this->noOfWeekdays->format('%y Year(s) %m Month(s) %d Day(s) %h Hour(s) %i Minute(s) %s Seconds'));
+				$this->noOfHours = floor($this->days * 24) + $this->timeInterval->format('%h');
+				return $this->noOfHours." hour(s)"; 
+				break;
+			case "minutes":
+				$this->noOfMinutes = floor($this->days * (60*24)) + ($this->timeInterval->format('%h')*60) + $this->timeInterval->format('%i');
+				return $this->noOfMinutes." minute(s)";
+				break;
+			case "seconds":
+				$this->noOfSeconds = floor($this->days * (60*60*24)) + ($this->timeInterval->format('%h')*(60*60)) + ($this->timeInterval->format('%i')*60) + $this->timeInterval->format('%s');
+				return $this->noOfSeconds." second(s)";
+				break;
+			default :
+				return 0;
+				break;
+		}
+    }
 	#Timezone for comparison of input parameters from different timezones 
 	
 }
@@ -157,7 +167,7 @@ class DateCalculator
 			echo $noofweeks = $calc->getNoOfWeeks($_POST['start_date'],$_POST['end_date'],$_POST['format']);
 		}
 		else
-			echo $noofweeks = $calc->getNoOfWeeks($_POST['start_date'],$_POST['end_date'],false);
+			echo $noofweeks = $calc->getNoOfWeeks($_POST['start_date'],$_POST['end_date'],'');
 	}
 
 ?>
