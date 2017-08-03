@@ -21,7 +21,7 @@ This project was run on XAMP installed on a Windows10 64bit machine. This is the
 https://www.apachefriends.org/download.html
 
 Above link contains download links for various Operating Systems including linux. The project folder needs to be placed in the htdocs folder 
-and XAMP needs to be started. Once up it can be accessed via http://localhost/aligent/index.php. The running solution can also be viewed via the link http://104.199.68.107/Aligent/index.php
+and XAMP needs to be started. Once up it can be accessed via localhost. The running solution can also be viewed via the link http://104.199.68.107/Aligent/index.php
 
 Tests
 
