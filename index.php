@@ -55,7 +55,7 @@
 						<div class="label"><label>Start Date: </label></div><div class="field"><input type="datetime-local" name="start_date" id="start_date" value=""></div>
 						<div class="field">
 							<select name="startdate_timezone" id="startdate_timezone">
-								<option value="none">None</option>
+								<option value="none">Select a Timezone</option>
 							    <option value="Australia/Adelaide">(GMT+09:30) Australia, Adelaide</option>
 							    <option value="Asia/Kolkata">(GMT+05:30) India, Chennai</option>
 							    <option value="Europe/Amsterdam">(GMT+01:00) Europe, Amsterdam</option>
@@ -66,7 +66,7 @@
 						<div class="label"><label>End Date: </label></div><div class="field"><input type="datetime-local" name="end_date" id="end_date" value=""></div>
 						<div class="field">
 							<select name="enddate_timezone" id="enddate_timezone">
-								<option value="none">None</option>
+								<option value="none">Select a Timezone</option>
 							    <option value="Australia/Adelaide">(GMT+09:30) Australia, Adelaide</option>
 							    <option value="Asia/Kolkata">(GMT+05:30) India, Chennai</option>
 							    <option value="Europe/Amsterdam">(GMT+01:00) Europe, Amsterdam</option>
