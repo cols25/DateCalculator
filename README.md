@@ -5,6 +5,7 @@ The project contains code that calculates date intervals in various formats and 
 Code Example
 
 This project calculates date intervals in various formats. 
+
 Example 1 : Start date : 3rd August 2017 12:00 AM Timezone : None
             End Date : 4th August 2017 12:00 AM   Timezone : None 
             Difference in days 1 day
