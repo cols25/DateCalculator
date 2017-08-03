@@ -28,6 +28,7 @@ body {
 
 .field {
 	float:left;
+	margin-right: 10px;
 }
 
 .btnCalculate {

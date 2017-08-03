@@ -13,6 +13,8 @@
 	 		function checkDate(){
 	 			var startObj = document.getElementById("start_date");
 	 			var endObj = document.getElementById("end_date");
+	 			var startdateObj = document.getElementById("startdate_timezone");
+	 			var enddateObj = document.getElementById("enddate_timezone");
 	 			if (startObj.value.length == 0 || endObj.value.length == 0) {
 	 				alert("Please select both start date and end date");
 	 				return;	
@@ -21,6 +23,12 @@
 	 				alert("Start Date should be less than end date. Please modify");
 	 				return;	
 	 			}
+	 			if ((startdateObj.value === 'none' && enddateObj.value !== 'none')
+	 			          || (startdateObj.value !== 'none' && enddateObj.value === 'none')) {
+	 				alert("Please select a timezone for both Start and End Date");
+	 				return;
+	 			}
+	 			
 	 			document.getElementById('dateCalc').submit();
 	 		}
 	 		function checkCalculateOption(){
@@ -45,9 +53,25 @@
 		    	<div class="sub">
 		    		<div class="entity">
 						<div class="label"><label>Start Date: </label></div><div class="field"><input type="datetime-local" name="start_date" id="start_date" value=""></div>
+						<div class="field">
+							<select name="startdate_timezone" id="startdate_timezone">
+								<option value="none">None</option>
+							    <option value="Australia/Adelaide">(GMT+09:30) Australia, Adelaide</option>
+							    <option value="Asia/Kolkata">(GMT+05:30) India, Chennai</option>
+							    <option value="Europe/Amsterdam">(GMT+01:00) Europe, Amsterdam</option>
+							</select>
+						</div>
 					</div>
 					<div class="entity">
 						<div class="label"><label>End Date: </label></div><div class="field"><input type="datetime-local" name="end_date" id="end_date" value=""></div>
+						<div class="field">
+							<select name="enddate_timezone" id="enddate_timezone">
+								<option value="none">None</option>
+							    <option value="Australia/Adelaide">(GMT+09:30) Australia, Adelaide</option>
+							    <option value="Asia/Kolkata">(GMT+05:30) India, Chennai</option>
+							    <option value="Europe/Amsterdam">(GMT+01:00) Europe, Amsterdam</option>
+							</select>
+						</div>
 					</div>
 					<div class="entity">
 						 <div class="label"><label>Calculate: </label></div>
@@ -73,7 +97,7 @@
 							<select name="timezone_offset" id="timezone-offset" class="span5">
 							    <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
 							    <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
-							    <option value="-10:00">(GMT -10:00) Hawaii</option>
+							    <!--<option value="-10:00">(GMT -10:00) Hawaii</option>
 							    <option value="-09:50">(GMT -9:30) Taiohae</option>
 							    <option value="-09:00">(GMT -9:00) Alaska</option>
 							    <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
